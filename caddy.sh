@@ -13,10 +13,17 @@ cat > /etc/Caddyfile <<'EOF'
 domain
 {
   log ./caddy.log
-  proxy /one :2333 {
+  proxy /1ec5eb76e3d7 :2999 {
     websocket
     header_upstream -Origin
   }
+  gzip  # 使用gzip压缩
+  proxy / localhost:3999 { 
+    header_upstream Host {host}
+    header_upstream X-Real-IP {remote}
+    header_upstream X-Forwarded-For {remote}
+    header_upstream X-Forwarded-Proto {scheme}
+    }
 }
 
 EOF
@@ -27,7 +34,7 @@ cat > /etc/v2ray/config.json <<'EOF'
 {
   "inbounds": [
     {
-      "port": 2333,
+      "port": 2999,
       "protocol": "vmess",
       "settings": {
         "clients": [
@@ -40,7 +47,7 @@ cat > /etc/v2ray/config.json <<'EOF'
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-        "path": "/one"
+        "path": "/1ec5eb76e3d7"
         }
       }
     }
@@ -64,7 +71,7 @@ cat > /srv/sebs.js <<'EOF'
     "host":"",
     "id":"uuid",
     "net":"ws",
-    "path":"/one",
+    "path":"/1ec5eb76e3d7",
     "port":"443",
     "ps":"sebsclub",
     "tls":"tls",

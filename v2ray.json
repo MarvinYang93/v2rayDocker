@@ -1,7 +1,7 @@
 {
   "inbounds": [
     {
-      "port": 2333,
+      "port": 2999,
       "protocol": "vmess",
       "settings": {
         "clients": [
@@ -14,7 +14,7 @@
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-        "path": "/one"
+        "path": "/1ec5eb76e3d7"
         }
       }
     }
